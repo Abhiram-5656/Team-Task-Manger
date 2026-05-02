@@ -69,19 +69,20 @@
 
 // startServer();
 
-
 const express = require("express");
-
-console.log("🔥 SERVER STARTED");
 
 const app = express();
 
+console.log("🔥 SERVER STARTED");
+
+// IMPORTANT: root route
 app.get("/", (req, res) => {
-  res.send("Backend working ✅");
+  res.status(200).send("Backend working ✅");
 });
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log("🚀 Running on port " + PORT);
+// IMPORTANT: bind properly
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Running on port ${PORT}`);
 });
