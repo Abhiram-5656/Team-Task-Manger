@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Use Vite env in production, fallback to local
+// Correct for React (CRA)
 const BASE_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const API = axios.create({
   baseURL: BASE_URL,
@@ -35,40 +35,40 @@ API.interceptors.response.use(
 
 // --- Auth ---
 export const authAPI = {
-  signup: (data) => API.post('/auth/signup', data),
-  login: (data) => API.post('/auth/login', data),
-  getMe: () => API.get('/auth/me'),
+  signup: (data) => API.post('api/auth/signup', data),
+  login: (data) => API.post('api/auth/login', data),
+  getMe: () => API.get('api/auth/me'),
 };
 
 // --- Users ---
 export const userAPI = {
-  getAll: () => API.get('/users'),
-  getById: (id) => API.get(`/users/${id}`),
+  getAll: () => API.get('api/users'),
+  getById: (id) => API.get(`api/users/${id}`),
   updateRole: (id, role) => API.put(`/users/${id}/role`, { role }),
   delete: (id) => API.delete(`/users/${id}`),
 };
 
 // --- Projects ---
 export const projectAPI = {
-  create: (data) => API.post('/projects', data),
-  getAll: () => API.get('/projects'),
-  getById: (id) => API.get(`/projects/${id}`),
-  update: (id, data) => API.put(`/projects/${id}`, data),
-  delete: (id) => API.delete(`/projects/${id}`),
+  create: (data) => API.post('api/projects', data),
+  getAll: () => API.get('api/projects'),
+  getById: (id) => API.get(`api/projects/${id}`),
+  update: (id, data) => API.put(`api/projects/${id}`, data),
+  delete: (id) => API.delete(`api/projects/${id}`),
 };
 
 // --- Tasks ---
 export const taskAPI = {
-  create: (data) => API.post('/tasks', data),
-  getAll: (params) => API.get('/tasks', { params }),
-  getById: (id) => API.get(`/tasks/${id}`),
-  update: (id, data) => API.put(`/tasks/${id}`, data),
-  delete: (id) => API.delete(`/tasks/${id}`),
+  create: (data) => API.post('api/tasks', data),
+  getAll: (params) => API.get('api/tasks', { params }),
+  getById: (id) => API.get(`api/tasks/${id}`),
+  update: (id, data) => API.put(`api/tasks/${id}`, data),
+  delete: (id) => API.delete(`api/tasks/${id}`),
 };
 
 // --- Dashboard ---
 export const dashboardAPI = {
-  getStats: () => API.get('/dashboard'),
+  getStats: () => API.get('api/dashboard'),
 };
 
 export default API;
