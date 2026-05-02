@@ -25,11 +25,11 @@ app.get('/', (req, res) => {
 
 // Routes (wrap in try to avoid crash)
 try {
-  app.use('/api/auth', require('./routes/authRoutes'));
-  app.use('/api/users', require('./routes/userRoutes'));
-  app.use('/api/projects', require('./routes/projectRoutes'));
-  app.use('/api/tasks', require('./routes/taskRoutes'));
-  app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+  // app.use('/api/auth', require('./routes/authRoutes'));
+  // app.use('/api/users', require('./routes/userRoutes'));
+  // app.use('/api/projects', require('./routes/projectRoutes'));
+  // app.use('/api/tasks', require('./routes/taskRoutes'));
+  // app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 } catch (err) {
   console.error("❌ Route loading error:", err.message);
 }
@@ -52,7 +52,7 @@ app.use((req, res) => {
 const startServer = async () => {
   try {
     console.log("📦 Connecting to DB...");
-    // await connectDB();
+    await connectDB();
 
     console.log("✅ MongoDB Connected");
 
