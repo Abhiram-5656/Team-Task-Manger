@@ -52,7 +52,7 @@ app.use((req, res) => {
 const startServer = async () => {
   try {
     console.log("📦 Connecting to DB...");
-    await connectDB();
+    // await connectDB();
 
     console.log("✅ MongoDB Connected");
 
