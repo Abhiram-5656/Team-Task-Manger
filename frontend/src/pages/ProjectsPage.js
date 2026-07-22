@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { projectAPI, userAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
@@ -128,7 +128,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(null); // null | 'create' | project object
 
-  const load = async () => {
+ const load = useCallback(async () => {
     try {
       const [pRes, uRes] = await Promise.all([
         projectAPI.getAll(),
@@ -141,9 +141,9 @@ export default function ProjectsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [isAdmin]);;
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [load]);
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();
