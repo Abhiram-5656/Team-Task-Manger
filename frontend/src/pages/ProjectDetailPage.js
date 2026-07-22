@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projectAPI, taskAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
@@ -18,23 +18,24 @@ export default function ProjectDetailPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
-    try {
-      const [pRes, tRes] = await Promise.all([
-        projectAPI.getById(id),
-        taskAPI.getAll({ project: id })
-      ]);
-      setProject(pRes.data.project);
-      setTasks(tRes.data.tasks);
-    } catch {
-      toast.error('Failed to load project');
-      navigate('/projects');
-    } finally {
-      setLoading(false);
-    }
-  };
+ const load = useCallback(async () => {
+  try {
+    const [pRes, tRes] = await Promise.all([
+      projectAPI.getById(id),
+      taskAPI.getAll({ project: id })
+    ]);
 
-  useEffect(() => { load(); }, [id]);
+    setProject(pRes.data.project);
+    setTasks(tRes.data.tasks);
+  } catch {
+    toast.error("Failed to load project");
+    navigate("/projects");
+  } finally {
+    setLoading(false);
+  }
+}, [id, navigate]);
+
+  useEffect(() => { load(); }, [load]);
 
   const handleDeleteTask = async (taskId) => {
     if (!window.confirm('Delete this task?')) return;
