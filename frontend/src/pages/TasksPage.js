@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import { taskAPI, projectAPI, userAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { format, isPast } from 'date-fns';
@@ -126,7 +126,7 @@ export default function TasksPage() {
   const [filters, setFilters] = useState({ status: '', priority: '', project: '' });
   const [search, setSearch] = useState('');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       const params = {};
       if (filters.status) params.status = filters.status;
@@ -142,9 +142,9 @@ export default function TasksPage() {
       setUsers(uRes.data.users || []);
     } catch { toast.error('Failed to load tasks'); }
     finally { setLoading(false); }
-  };
+  }, [filters, isAdmin]);
 
-  useEffect(() => { load(); }, [filters]);
+  useEffect(() => { load(); }, [load]);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this task?')) return;
