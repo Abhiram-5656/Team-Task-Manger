@@ -1,285 +1,556 @@
-# ⚡ TaskFlow — Team Task Manager (Full-Stack MERN)
+# 🚀 TaskFlow – Enterprise Team Task Management System
 
-A production-ready full-stack web application for managing team projects and tasks with role-based access control.
+> A production-ready **Full-Stack MERN** application designed to streamline project planning, task assignment, and team collaboration through secure Role-Based Access Control (RBAC), JWT authentication, and real-time project tracking.
 
-## 🖼️ Features
-
-| Feature | Admin | Member |
-|---|---|---|
-| Signup / Login (JWT) | ✅ | ✅ |
-| Dashboard with stats & charts | ✅ | ✅ (own tasks) |
-| Create / Edit / Delete Projects | ✅ | ❌ |
-| View Projects | ✅ | ✅ (assigned only) |
-| Create / Edit / Delete Tasks | ✅ | ❌ |
-| View Tasks | ✅ | ✅ (assigned only) |
-| Update Task Status | ✅ | ✅ |
-| Manage Users & Roles | ✅ | ❌ |
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green?logo=mongodb)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 
 ---
 
-## 🗂️ Folder Structure
+# 📖 Overview
+
+TaskFlow is a modern **Team Task Management Platform** built using the **MERN Stack** that enables organizations to efficiently manage projects, assign work, monitor progress, and collaborate securely.
+
+The application provides dedicated dashboards for **Administrators** and **Team Members**, ensuring that users only access resources permitted by their assigned roles.
+
+This project demonstrates industry-standard software engineering practices including:
+
+- RESTful API Architecture
+- JWT Authentication
+- Role-Based Authorization (RBAC)
+- Secure Password Encryption
+- MongoDB Data Modeling
+- Dashboard Analytics
+- Production Deployment
+- Clean Folder Architecture
+- Responsive UI
+
+---
+
+# ✨ Key Features
+
+## 🔐 Authentication & Security
+
+- JWT Authentication
+- Secure Password Hashing using bcrypt
+- Protected API Routes
+- Role-Based Access Control (RBAC)
+- Token Expiration Handling
+- Input Validation
+- Secure CORS Configuration
+
+---
+
+## 📊 Dashboard
+
+- Total Projects
+- Total Tasks
+- Pending Tasks
+- Completed Tasks
+- In Progress Tasks
+- Interactive Charts
+- Role-specific Statistics
+
+---
+
+## 📁 Project Management
+
+### Admin
+
+- Create Projects
+- Update Projects
+- Delete Projects
+- Assign Team Members
+- Set Deadlines
+- Manage Project Status
+
+### Team Member
+
+- View Assigned Projects
+- Track Progress
+
+---
+
+## ✅ Task Management
+
+### Admin
+
+- Create Tasks
+- Assign Members
+- Edit Tasks
+- Delete Tasks
+- Set Priority
+- Set Due Dates
+
+### Team Member
+
+- View Assigned Tasks
+- Update Task Status
+- Track Progress
+
+---
+
+## 👥 User Management
+
+Administrator can
+
+- View All Users
+- Manage Roles
+- Delete Users
+- Assign Members to Projects
+
+---
+
+# 🛠 Technology Stack
+
+| Category | Technologies |
+|-----------|-------------|
+| Frontend | React 18, React Router DOM v6 |
+| Styling | CSS3, Responsive Design |
+| State Management | Context API |
+| Charts | Recharts |
+| HTTP Client | Axios |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, bcryptjs |
+| Validation | express-validator |
+| Deployment | Railway, Netlify, Vercel |
+| Version Control | Git, GitHub |
+
+---
+
+# 🏗 System Architecture
+
+```
+                React Frontend
+                      │
+                 Axios Requests
+                      │
+          Express REST API (Node.js)
+                      │
+      Authentication & Authorization
+                      │
+              Controllers Layer
+                      │
+              Business Logic
+                      │
+               Mongoose Models
+                      │
+                  MongoDB Atlas
+```
+
+---
+
+# 📂 Project Structure
 
 ```
 team-task-manager/
+
 ├── backend/
-│   ├── config/
-│   │   └── db.js                 # MongoDB connection
-│   ├── controllers/
-│   │   ├── authController.js     # Signup, Login, GetMe
-│   │   ├── userController.js     # CRUD for users (admin)
-│   │   ├── projectController.js  # CRUD for projects
-│   │   ├── taskController.js     # CRUD for tasks
-│   │   └── dashboardController.js# Stats aggregation
-│   ├── middleware/
-│   │   ├── authMiddleware.js     # JWT protect + adminOnly
-│   │   └── validate.js           # express-validator handler
-│   ├── models/
-│   │   ├── User.js               # User schema (bcrypt)
-│   │   ├── Project.js            # Project schema
-│   │   └── Task.js               # Task schema
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── userRoutes.js
-│   │   ├── projectRoutes.js
-│   │   ├── taskRoutes.js
-│   │   └── dashboardRoutes.js
-│   ├── .env.example
-│   ├── .gitignore
-│   ├── railway.toml              # Railway deployment config
-│   ├── package.json
-│   └── server.js                 # Express entry point
+│
+├── config/
+├── controllers/
+├── middleware/
+├── models/
+├── routes/
+├── server.js
 │
 └── frontend/
-    ├── public/
-    │   └── index.html
-    ├── src/
-    │   ├── components/
-    │   │   └── layout/
-    │   │       └── Layout.js     # Sidebar + main layout
-    │   ├── context/
-    │   │   └── AuthContext.js    # Global auth state
-    │   ├── pages/
-    │   │   ├── LoginPage.js
-    │   │   ├── SignupPage.js
-    │   │   ├── DashboardPage.js
-    │   │   ├── ProjectsPage.js
-    │   │   ├── ProjectDetailPage.js
-    │   │   ├── TasksPage.js
-    │   │   └── UsersPage.js
-    │   ├── utils/
-    │   │   └── api.js            # Axios instance + all API calls
-    │   ├── App.js                # Routes + protected routes
-    │   ├── index.js
-    │   └── index.css             # Global design system CSS
-    ├── .env.example
-    ├── .gitignore
-    ├── netlify.toml              # Netlify SPA redirect
-    ├── vercel.json               # Vercel SPA redirect
-    └── package.json
+│
+├── public/
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── utils/
+│   ├── App.js
+│   └── index.js
+│
+└── README.md
 ```
 
 ---
 
-## 🚀 Local Setup
+# 👨‍💻 User Roles
 
-### Prerequisites
-- Node.js v18+
-- MongoDB Atlas account (free tier works)
-- Git
+| Module | Administrator | Team Member |
+|----------|--------------|-------------|
+| Authentication | ✅ | ✅ |
+| Dashboard | ✅ | ✅ |
+| View Projects | ✅ | ✅ |
+| Create Project | ✅ | ❌ |
+| Edit Project | ✅ | ❌ |
+| Delete Project | ✅ | ❌ |
+| View Tasks | ✅ | ✅ |
+| Create Task | ✅ | ❌ |
+| Edit Task | ✅ | ❌ |
+| Delete Task | ✅ | ❌ |
+| Update Task Status | ✅ | ✅ |
+| Manage Users | ✅ | ❌ |
 
-### 1. Clone the Repository
+---
+
+# 🔗 REST API
+
+## Authentication
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/auth/signup |
+| POST | /api/auth/login |
+| GET | /api/auth/me |
+
+---
+
+## Users
+
+| Method | Endpoint |
+|----------|----------|
+| GET | /api/users |
+| PUT | /api/users/:id/role |
+| DELETE | /api/users/:id |
+
+---
+
+## Projects
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/projects |
+| GET | /api/projects |
+| GET | /api/projects/:id |
+| PUT | /api/projects/:id |
+| DELETE | /api/projects/:id |
+
+---
+
+## Tasks
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/tasks |
+| GET | /api/tasks |
+| GET | /api/tasks/:id |
+| PUT | /api/tasks/:id |
+| DELETE | /api/tasks/:id |
+
+---
+
+## Dashboard
+
+| Method | Endpoint |
+|----------|----------|
+| GET | /api/dashboard |
+
+---
+
+# 💾 Database Design
+
+## User
+
+```javascript
+{
+  name,
+  email,
+  password,
+  role
+}
+```
+
+---
+
+## Project
+
+```javascript
+{
+  name,
+  description,
+  status,
+  members,
+  createdBy,
+  deadline
+}
+```
+
+---
+
+## Task
+
+```javascript
+{
+  title,
+  description,
+  status,
+  priority,
+  dueDate,
+  assignedTo,
+  project,
+  createdBy
+}
+```
+
+---
+
+# 🔒 Security Implementation
+
+- JWT Authentication
+- Password Hashing (bcrypt)
+- Role-Based Middleware
+- Protected Routes
+- Request Validation
+- Secure HTTP Headers
+- Token Verification
+- CORS Restriction
+- Environment Variables
+- MongoDB Injection Protection
+
+---
+
+# ⚙️ Local Installation
+
+## Clone Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/team-task-manager.git
+
 cd team-task-manager
 ```
 
-### 2. Backend Setup
+---
+
+## Backend
 
 ```bash
 cd backend
+
 npm install
+
 cp .env.example .env
 ```
 
-Edit `.env`:
-```
+Update `.env`
+
+```env
 PORT=5000
-MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/taskflowdb
-JWT_SECRET=your_random_secret_here_min_32_chars
+
+MONGO_URI=YOUR_MONGODB_URI
+
+JWT_SECRET=YOUR_SECRET_KEY
+
 NODE_ENV=development
+
 FRONTEND_URL=http://localhost:3000
 ```
 
-```bash
-npm run dev    # starts on http://localhost:5000
-```
-
-### 3. Frontend Setup
+Run
 
 ```bash
-cd ../frontend
-npm install
-cp .env.example .env
+npm run dev
 ```
 
-Edit `.env`:
-```
-REACT_APP_API_URL=http://localhost:5000/api
-```
+Backend
 
-```bash
-npm start    # starts on http://localhost:3000
+```
+http://localhost:5000
 ```
 
 ---
 
-## 📡 API Reference
-
-### Auth
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/auth/signup` | Public | Register user |
-| POST | `/api/auth/login` | Public | Login user |
-| GET | `/api/auth/me` | Private | Get current user |
-
-### Users
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/users` | Admin | Get all users |
-| PUT | `/api/users/:id/role` | Admin | Update user role |
-| DELETE | `/api/users/:id` | Admin | Delete user |
-
-### Projects
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/projects` | Admin | Create project |
-| GET | `/api/projects` | Private | Get projects |
-| GET | `/api/projects/:id` | Private | Get project |
-| PUT | `/api/projects/:id` | Admin | Update project |
-| DELETE | `/api/projects/:id` | Admin | Delete project + tasks |
-
-### Tasks
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/tasks` | Admin | Create task |
-| GET | `/api/tasks` | Private | Get tasks (filtered) |
-| GET | `/api/tasks/:id` | Private | Get task |
-| PUT | `/api/tasks/:id` | Private | Update (admin: all; member: status only) |
-| DELETE | `/api/tasks/:id` | Admin | Delete task |
-
-### Dashboard
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/dashboard` | Private | Get stats |
-
-**Task query params:** `?status=Pending&priority=high&project=<id>`
-
----
-
-## ☁️ Deployment
-
-### Backend → Railway
-
-1. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo**
-2. Select your backend folder / repo
-3. Add environment variables in Railway dashboard:
-   ```
-   PORT=5000
-   MONGO_URI=<your_atlas_uri>
-   JWT_SECRET=<strong_secret>
-   NODE_ENV=production
-   FRONTEND_URL=https://your-frontend.netlify.app
-   ```
-4. Railway auto-detects Node.js and uses `railway.toml` config
-5. Copy the Railway public URL (e.g. `https://taskflow-api.up.railway.app`)
-
-### Frontend → Netlify
-
-1. Go to [netlify.app](https://netlify.com) → **Add new site** → **Import from Git**
-2. Set **Base directory:** `frontend`
-3. Set **Build command:** `npm run build`
-4. Set **Publish directory:** `frontend/build`
-5. Add environment variable:
-   ```
-   REACT_APP_API_URL=https://your-railway-backend.up.railway.app/api
-   ```
-6. Deploy! The `netlify.toml` handles SPA routing automatically.
-
-### Frontend → Vercel (Alternative)
+## Frontend
 
 ```bash
 cd frontend
-npm install -g vercel
-vercel
-# Follow prompts, set REACT_APP_API_URL in Vercel dashboard
+
+npm install
+
+cp .env.example .env
+```
+
+Update
+
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+Run
+
+```bash
+npm start
+```
+
+Frontend
+
+```
+http://localhost:3000
 ```
 
 ---
 
-## 🗄️ Database Schemas
+# ☁️ Deployment
 
-### User
-```js
-{ name, email, password (hashed), role: 'admin'|'member' }
+## Backend
+
+- Railway
+
+Environment Variables
+
+```env
+PORT
+
+MONGO_URI
+
+JWT_SECRET
+
+NODE_ENV=production
+
+FRONTEND_URL=https://your-netlify-app.netlify.app
 ```
 
-### Project
-```js
-{ name, description, status: 'active'|'completed'|'on-hold',
-  createdBy: User, members: [User], deadline }
+---
+
+## Frontend
+
+Deploy using
+
+- Netlify
+- Vercel
+
+Environment Variable
+
+```env
+REACT_APP_API_URL=https://your-railway-domain.up.railway.app/api
 ```
 
-### Task
-```js
-{ title, description, status: 'Pending'|'In Progress'|'Completed',
-  priority: 'low'|'medium'|'high', dueDate,
-  project: Project, assignedTo: User, createdBy: User }
+---
+
+# 📈 Future Enhancements
+
+- Email Notifications
+- File Attachments
+- Activity Logs
+- Team Chat
+- Comments on Tasks
+- Calendar View
+- Dark Mode
+- Real-time Notifications
+- Docker Support
+- Kubernetes Deployment
+- CI/CD Pipeline
+- Unit Testing
+- WebSockets
+- Audit Logs
+
+---
+
+# 📸 Screenshots
+
+Add screenshots here.
+
+```
+Login
+
+Dashboard
+
+Projects
+
+Tasks
+
+Users
+
+Analytics
 ```
 
 ---
 
-## 🔒 Security Features
+# 🎥 Demonstration
 
-- Passwords hashed with **bcrypt** (salt rounds: 10)
-- Authentication via **JWT** (7-day expiry)
-- Role-based middleware on every protected route
-- Input validation with **express-validator**
-- Global 401 handler auto-logs out expired tokens
-- CORS configured for specific frontend origin
+Include
 
----
+- Live Demo Link
+- Demo Video
+- API Documentation
 
-## 🛠️ Tech Stack
+Example
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 18, React Router v6 |
-| State | Context API + localStorage |
-| HTTP | Axios with interceptors |
-| Charts | Recharts |
-| Styling | Custom CSS (design system) |
-| Backend | Node.js, Express.js |
-| Database | MongoDB + Mongoose |
-| Auth | JWT + bcryptjs |
-| Validation | express-validator |
-| Deployment | Railway (backend), Netlify/Vercel (frontend) |
+```
+Live Demo:
+https://your-netlify-url.netlify.app
+
+Backend API:
+https://your-railway-url.up.railway.app
+
+Video:
+https://youtu.be/your-video
+```
 
 ---
 
-## 🎬 Demo Video Checklist (2-5 min)
+# 💡 Learning Outcomes
 
-1. Sign up as **Admin**, then sign up as **Member** in incognito
-2. Admin: Create a project, add the member to it
-3. Admin: Create 2-3 tasks and assign them
-4. Show the **Dashboard** with stats and chart
-5. Login as **Member**: show restricted view (only assigned tasks)
-6. Member updates a task status to "Completed"
-7. Show the dashboard updates reflect the change
-8. Show the **Users** page (admin only)
+This project demonstrates proficiency in:
+
+- Full-Stack MERN Development
+- REST API Development
+- Authentication & Authorization
+- MongoDB Data Modeling
+- React Component Architecture
+- State Management
+- Secure Backend Development
+- Deployment & DevOps
+- Clean Code Practices
+- Production-Level Folder Structure
 
 ---
 
-## 📝 License
+# 🤝 Contributing
 
-MIT
+Contributions, issues, and feature requests are welcome.
+
+If you'd like to improve this project:
+
+1. Fork the repository
+2. Create a new branch
+
+```bash
+git checkout -b feature/feature-name
+```
+
+3. Commit changes
+
+```bash
+git commit -m "Added feature"
+```
+
+4. Push
+
+```bash
+git push origin feature/feature-name
+```
+
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+Distributed under the MIT License.
+
+---
+
+# 👨‍💻 Author
+
+**Nalla Abhiram**
+
+Software Engineer | MERN Stack Developer | Java Developer | Cloud & DevOps Enthusiast
+
+- LinkedIn: https://linkedin.com/in/your-profile
+- GitHub: https://github.com/your-username
+- Portfolio: https://your-portfolio.com
+
+---
+
+⭐ If you found this project useful, consider giving it a Star on GitHub.
