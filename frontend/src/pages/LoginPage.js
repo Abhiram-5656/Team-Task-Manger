@@ -68,13 +68,7 @@ export default function LoginPage() {
           Don't have an account? <Link to="/signup">Create one</Link>
         </div>
 
-        {/* Demo credentials hint */}
-        <div style={{
-          marginTop: 20, padding: 12, background: 'var(--accent-dim)', borderRadius: 'var(--radius)',
-          fontSize: 12, color: 'var(--accent-light)', lineHeight: 1.6
-        }}>
-          <strong>Demo:</strong> Create an account with role "admin" to access all features.
-        </div>
+        
       </div>
     </div>
   );
