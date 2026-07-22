@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Correct for React (CRA)
 const BASE_URL =
-  process.env.REACT_APP_API_URL || 'https://team-task-manger-dm9c.onrender.com';
+  process.env.REACT_APP_API_URL || 'https://team-task-manger-dm9c.onrender.com/api';
 
 const API = axios.create({
   baseURL: BASE_URL,
